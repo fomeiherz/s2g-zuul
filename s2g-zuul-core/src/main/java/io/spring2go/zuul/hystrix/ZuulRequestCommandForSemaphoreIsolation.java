@@ -66,6 +66,7 @@ public class ZuulRequestCommandForSemaphoreIsolation extends HystrixCommand<Http
     HttpResponse forward() throws IOException {
     	
     	Context ctx = new CatContext();
+    	// HTTP调用，需要设置到Headers中
     	Cat.logRemoteCallClient(ctx);
     	httpUriRequest.addHeader(Constants.CAT_ROOT_MESSAGE_ID, ctx.getProperty(Cat.Context.ROOT));
     	httpUriRequest.addHeader(Constants.CAT_PARENT_MESSAGE_ID, ctx.getProperty(Cat.Context.PARENT));

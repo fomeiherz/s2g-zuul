@@ -46,6 +46,7 @@ import io.spring2go.zuul.util.HTTPRequestUtil
 public class ExecuteRoute extends ZuulFilter{
 	private static Logger logger = LoggerFactory.getLogger(ExecuteRoute.class);
 	private static final DynamicIntProperty MAX_CONNECTIONS = DynamicPropertyFactory.getInstance().getIntProperty(Constants.ZUUL_CLIENT_MAX_CONNECTIONS, 500)
+	// 最大连接数上限
 	private static final DynamicIntProperty MAX_CONNECTIONS_PER_ROUTE = DynamicPropertyFactory.getInstance().getIntProperty(Constants.ZUUL_CLIENT_ROUTE_MAX_CONNECTIONS, 20)
 	private static final DynamicBooleanProperty DEBUG_ROUTE = DynamicPropertyFactory.getInstance().getBooleanProperty("zuul.debug.thread.route", false);
 

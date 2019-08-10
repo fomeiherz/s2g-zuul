@@ -9,7 +9,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * Representation of a ZuulFilter for representing and storing in a database
  */
 @ThreadSafe
-public class FilterInfo implements  Comparable<FilterInfo>{
+public class FilterInfo implements Comparable<FilterInfo> {
 
     private String filterId;
     private String filterName;
@@ -24,10 +24,12 @@ public class FilterInfo implements  Comparable<FilterInfo>{
     private final AtomicBoolean isActive = new AtomicBoolean();
     private final AtomicBoolean isCanary = new AtomicBoolean();
 
-    public FilterInfo() {}
+    public FilterInfo() {
+    }
 
     /**
      * Constructor
+     *
      * @param filterId
      * @param filterCode
      * @param filterType
@@ -49,7 +51,6 @@ public class FilterInfo implements  Comparable<FilterInfo>{
     }
 
     /**
-     *
      * @param filterId
      * @param revision
      * @param createTime
@@ -79,6 +80,7 @@ public class FilterInfo implements  Comparable<FilterInfo>{
 
     /**
      * builds the unique filterId key
+     *
      * @param applicationName
      * @param filterType
      * @param filterName
@@ -122,24 +124,10 @@ public class FilterInfo implements  Comparable<FilterInfo>{
 
     @Override
     public int compareTo(FilterInfo filterInfo) {
-        if(filterInfo.getFilterName().equals(this.getFilterName())){
+        if (filterInfo.getFilterName().equals(this.getFilterName())) {
             return filterInfo.createTime.compareTo(getCreateTime());
         }
         return filterInfo.getFilterName().compareTo(this.getFilterName());
-    }
-
-    @Override
-    public String toString() {
-        return "FilterInfo{" +
-                "filterId='" + filterId + '\'' +
-                ", filterName='" + filterName + '\'' +
-                ", filterType='" + filterType + '\'' +
-                ", revision=" + revision +
-                ", createTime=" + createTime +
-                ", isActive=" + isActive +
-                ", isCanary=" + isCanary +
-                ", applicationName=" + applicationName +
-                '}';
     }
 
     public String getFilterId() {

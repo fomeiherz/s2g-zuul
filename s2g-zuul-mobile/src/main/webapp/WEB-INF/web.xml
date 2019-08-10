@@ -8,6 +8,7 @@
 	<servlet>
 		<servlet-name>AsyncZuulServlet</servlet-name>
 		<servlet-class>io.spring2go.zuul.servlet.AsyncZuulServlet</servlet-class>
+		<!-- 必须设置为true，表示是异步的 -->
 		<async-supported>true</async-supported>
 	</servlet>
 	<servlet-mapping>

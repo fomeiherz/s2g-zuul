@@ -22,16 +22,15 @@ import io.spring2go.zuul.filters.ZuulFilter;
 /**
  * This class is one of the core classes in Zuul. It compiles, loads from a File, and checks if source code changed.
  * It also holds ZuulFilters by filterType.
- *
  */
 public class FilterLoader {
     private static final Logger LOGGER = LoggerFactory.getLogger(FilterLoader.class);
 
     private final static FilterLoader instance = new FilterLoader();
-   
+
     private static IDynamicCodeCompiler COMPILER;
     private static IFilterFactory FILTER_FACTORY = new DefaultFilterFactory();
-    
+
     private FilterRegistry filterRegistry = FilterRegistry.instance();
     private final ConcurrentHashMap<String, Long> filterClassLastModified = new ConcurrentHashMap<String, Long>();
     private final ConcurrentHashMap<String, String> filterClassCode = new ConcurrentHashMap<String, String>();
@@ -59,6 +58,7 @@ public class FilterLoader {
 //    	filterRegistry.put("filter12----", new WirelessValidateToken());
 
     }
+
     /**
      * Sets a Dynamic Code Compiler
      *
@@ -75,20 +75,20 @@ public class FilterLoader {
 
     /**
      * Sets a FilterFactory
-     * 
+     *
      * @param factory
      */
     public void setFilterFactory(IFilterFactory factory) {
         FILTER_FACTORY = factory;
     }
-    
+
     /**
      * @return Singleton FilterLoader
      */
     public static FilterLoader getInstance() {
         return instance;
     }
-    
+
     /**
      * Given source and name will compile and store the filter if it detects that the filter code has changed or
      * the filter doesn't exist. Otherwise it will return an instance of the requested ZuulFilter
@@ -118,14 +118,14 @@ public class FilterLoader {
         return filter;
 
     }
-    
+
     /**
      * @return the total number of Zuul filters
      */
     public int filterInstanceMapSize() {
         return filterRegistry.size();
     }
-    
+
     /**
      * From a file this will read the ZuulFilter source code, compile it, and add it to the list of current filters
      * a true response means that it was successful.
@@ -146,7 +146,7 @@ public class FilterLoader {
         if (filter == null) {
             Class clazz = COMPILER.compile(file);
             if (!Modifier.isAbstract(clazz.getModifiers())) {
-                filter = (ZuulFilter) FILTER_FACTORY.newInstance(clazz);
+                filter = FILTER_FACTORY.newInstance(clazz);
                 filterRegistry.put(file.getAbsolutePath() + file.getName(), filter);
                 filterClassLastModified.put(sName, file.lastModified());
                 List<ZuulFilter> list = hashFiltersByType.get(filter.filterType());
@@ -158,9 +158,9 @@ public class FilterLoader {
         }
 
         return false;
-    }    
-    
-    
+    }
+
+
     /**
      * Returns a list of filters by the filterType specified
      *
@@ -176,7 +176,7 @@ public class FilterLoader {
 
         Collection<ZuulFilter> filters = filterRegistry.getAllFilters();
         for (Iterator<ZuulFilter> iterator = filters.iterator(); iterator.hasNext(); ) {
-        	ZuulFilter filter = iterator.next();
+            ZuulFilter filter = iterator.next();
             if (filter.filterType().equals(filterType)) {
                 list.add(filter);
             }

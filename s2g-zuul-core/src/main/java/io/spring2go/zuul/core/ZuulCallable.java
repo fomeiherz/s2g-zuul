@@ -38,6 +38,7 @@ public class ZuulCallable implements Callable {
 
 	@Override
 	public Object call() throws Exception {
+		// 恢复Cat的Context
 		Cat.logRemoteCallServer(catCtx);
 		RequestContext.getCurrentContext().unset();
 		Transaction tran = ((DefaultMessageProducer) Cat.getProducer()).newTransaction("ZuulCallable",

@@ -87,8 +87,9 @@ public class AsyncZuulServlet extends HttpServlet {
         asyncContext.addListener(new AsyncZuulListener());
         try {
         	Context ctx = new CatContext();
+        	// 异步调用，需要传递Context
         	Cat.logRemoteCallClient(ctx);
-            poolExecutorRef.get().submit(new ZuulCallable(ctx,asyncContext, zuulRunner,req));            
+            poolExecutorRef.get().submit(new ZuulCallable(ctx,asyncContext, zuulRunner,req));
             tran.setStatus(Transaction.SUCCESS);
         } catch (RuntimeException e) {
             Cat.logError(e);
